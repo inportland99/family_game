@@ -6,10 +6,7 @@ FamilyGame::Application.routes.draw do
 
 
   resources :points do
-    collection do
-      put :add_multiple
-    end
-  end
+
 
   resources :activities
 

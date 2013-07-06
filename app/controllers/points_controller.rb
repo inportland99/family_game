@@ -85,7 +85,4 @@ class PointsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
-  def add_multiple
-  end
 end
