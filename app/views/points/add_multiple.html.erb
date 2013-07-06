@@ -1,0 +1,20 @@
+<%= simple_form_for @point, html: {class: "form-horizontal"} do |f| %>
+  <div class="field">
+    <% if params[:user_id] %>
+      <h4>Add points for <%= @user.name %></h4>
+      <%= f.hidden_field :user_id, value: params[:user_id] %>
+    <% else %>
+      <%= f.association :user, label_method: :name, :selected => params[:user] %><br />
+      <%# f.label :user_id %>
+      <%# f.number_field :user_id %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= f.association :activity, label_method: :name, include_blank: :true, :selected => params[:activity] %><br />
+    <%# f.label :activity_id %>
+    <%# f.number_field :activity_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Add Points Now', class: 'btn btn-success' %>
+  </div>
+<% end %>
