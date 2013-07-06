@@ -1,20 +1,27 @@
-<%= simple_form_for @point, html: {class: "form-horizontal"} do |f| %>
-  <div class="field">
-    <% if params[:user_id] %>
-      <h4>Add points for <%= @user.name %></h4>
-      <%= f.hidden_field :user_id, value: params[:user_id] %>
-    <% else %>
-      <%= f.association :user, label_method: :name, :selected => params[:user] %><br />
-      <%# f.label :user_id %>
-      <%# f.number_field :user_id %>
-    <% end %>
-  </div>
-  <div class="field">
-    <%= f.association :activity, label_method: :name, include_blank: :true, :selected => params[:activity] %><br />
-    <%# f.label :activity_id %>
-    <%# f.number_field :activity_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit 'Add Points Now', class: 'btn btn-success' %>
-  </div>
+<h1>Add Points</h1>
+<%= form_tag add_multiple_points_path, method: :put do %>
+  <table class="table table-striped table-condensed" >
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Points</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+
+  <% @activities.each do |activity| %>
+    <tr>
+      <td><%=check_box_tag "activity_ids[]", activity.id %></td>
+      <td><%= activity.name %></td>
+      <td><%= activity.description %></td>
+      <td><%= activity.activity_xp %></td>
+      <td><%= link_to 'Show', activity %></td>
+      <td><%= link_to 'Edit', edit_activity_path(activity) %></td>
+      <td><%= link_to 'Destroy', activity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+  </table>
+  <%= submit_tag "Add Points for Selected Activities" %>
 <% end %>
