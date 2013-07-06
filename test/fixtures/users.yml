@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  xp: 1
+  credits: 1
+  rank: MyString
+
+two:
+  name: MyString
+  xp: 1
+  credits: 1
+  rank: MyString

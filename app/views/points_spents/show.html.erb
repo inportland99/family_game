@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @points_spent.user_id %>
+</p>
+
+<p>
+  <b>Rewards:</b>
+  <%= @points_spent.reward_id %>
+</p>
+
+<p>
+  <b>Xp spent:</b>
+  <%= @points_spent.xp_spent %>
+</p>
+
+
+<%= link_to 'Edit', edit_points_spent_path(@points_spent) %> |
+<%= link_to 'Back', points_spents_path %>

@@ -1,0 +1,2 @@
+module PointsSpentsHelper
+end

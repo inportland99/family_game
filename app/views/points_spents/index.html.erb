@@ -1,0 +1,29 @@
+<h1>Points Spent</h1>
+
+<table class="table table-striped table-condensed">
+  <tr>
+    <th>User</th>
+    <th>Rewards</th>
+    <th>Points Spent</th>
+    <th>Date Spent</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @points_spents.each do |points_spent| %>
+  <tr>
+    <td><%= points_spent.user.name %></td>
+    <td><%= points_spent.reward.name %></td>
+    <td><%= points_spent.xp_spent %></td>
+    <td><%= points_spent.created_at.strftime("%b-%d-%Y") %></td>
+    <td><%= link_to 'Show', points_spent %></td>
+    <td><%= link_to 'Edit', edit_points_spent_path(points_spent) %></td>
+    <td><%= link_to 'Destroy', points_spent, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<p><%= link_to 'Spend Points', new_points_spent_path, class: 'btn' %></p>
