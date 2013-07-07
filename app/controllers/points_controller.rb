@@ -40,21 +40,47 @@ class PointsController < ApplicationController
   # POST /points
   # POST /points.json
   def create
-    @point = Point.new(params[:point])
-    
-    # Set point.xp_earned based on the activity chosen
-    @activity = Activity.find(params[:point][:activity_id])
-    @point.xp_earned = @activity.activity_xp
+      @point = Point.new(params[:point])
+      
+      # Set point.xp_earned based on the activity chosen
+      @activity = Activity.find(params[:point][:activity_id])
+      @point.xp_earned = @activity.activity_xp
 
-    respond_to do |format|
-      if @point.save
-        flash[:success] = 'Points added successfully'
-        format.html { redirect_to user_path(params[:point][:user_id]) }
-        format.json { render json: @point, status: :created, location: @point }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @point.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @point.save
+          flash[:success] = 'Points added successfully'
+          format.html { redirect_to user_path(params[:point][:user_id]) }
+          format.json { render json: @point, status: :created, location: @point }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @point.errors, status: :unprocessable_entity }
+        end
       end
+  end
+
+  def multiple
+    @activity_ids = params[:point][:activity_id]
+    #params[:point].delete(:activity_id)
+    @activity_ids.each do |activity_id|
+      if !activity_id.blank?
+        params[:point][:activity_id] = activity_id
+
+        @point = Point.new(params[:point])
+
+        # Set point.xp_earned based on the activity chosen
+        @activity = Activity.find(activity_id)
+
+        @point.xp_earned = @activity.activity_xp
+        if !@point.save
+          flash[:error] = 'Failed to add points.'
+        else
+          flash[:success] = 'Added points.'
+        end   
+      end
+    end
+    respond_to do |format|
+      format.html { redirect_to user_path(params[:point][:user_id]) }
+      format.json { render json: @point, status: :created, location: @point }
     end
   end
 

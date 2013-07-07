@@ -5,8 +5,12 @@ FamilyGame::Application.routes.draw do
   resources :rewards
 
 
-  resources :points
-
+  resources :points do
+    collection do
+      post :multiple
+    end
+  end
+  
 
   resources :activities
 
