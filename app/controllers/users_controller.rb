@@ -17,6 +17,12 @@ class UsersController < ApplicationController
     @points_feed = Point.where("user_id  = ? AND updated_at > ?", @user.id, 1.days.ago ).order('created_at desc').limit('20')
     @points_spent_feed = PointsSpent.where("user_id  = ? AND updated_at > ?", @user.id, 7.days.ago ).order('created_at desc').limit('20')
 
+    # Create list of activities that have not been done in the last 24 hours
+    @todo = Activity.all
+    @points_feed.each do |activity_completed|
+      @todo.reject!{ |act| act.id == activity_completed.activity_id}
+    end
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user }
