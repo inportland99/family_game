@@ -1,5 +1,4 @@
 @import "bootstrap";
-@import "bootstrap-responsive";
 body { padding-top: 60px; }
 select { width: 90px }
 textarea { width: 35% }
@@ -11,3 +10,4 @@ select { width: 200px; }
 .hero-unit { padding: 30px; }
 th a:visited { color: black; }
 th a:hover { color: white; }
+@import "bootstrap-responsive";
