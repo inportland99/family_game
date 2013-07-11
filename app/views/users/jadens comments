@@ -1,3 +1,27 @@
-# user authentification
 # there should be a bonus of diffrent values only to be added by adults
 # kids can create activities but they have to be approved by adults
+
+----------
+git merge and push to heroku
+
+prevent users from seeing other people's pages via url
+parents can only see their child
+
+add categories to activities & rewards
+
+Send nightly email with summary of activities
+
+----------
+DONE Add logged in username to menubar and dropdown to edit your profile
+DONE # user authentification
+DONE archive activities and rewards instead of deleting them (this removes them from views, but keeps the points earned or spent)
+	Add active column to each model
+	edit _form, index views to handle active = true
+DONE make description fields smaller in simple_form_for (activities, rewards)
+	  <%= f.input :description, :input_html => { :rows => 3 } %>
+DONE allow login by username
+	# https://github.com/plataformatec/devise/wiki/How-To:-Allow-users-to-sign-in-using-their-username-or-email-address
+DONE remove archived activities from the add points form
+	# used collection and passed an instance variable with just active activities
+DONE sort leaderboard by columns (add earned in last week column)
+	# railscasts #228 sortable table columns

@@ -1,4 +1,5 @@
 class PointsSpentsController < ApplicationController
+  before_filter :authenticate_user!
   # GET /points_spents
   # GET /points_spents.json
   def index

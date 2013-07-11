@@ -10,7 +10,7 @@
     <% end %>
   </div>
   <div class="field">
-    <%= f.association :activity, label_method: :name, as: :check_boxes, :selected => params[:activity] %><br />
+    <%= f.association :activity, label_method: :name, as: :check_boxes, collection: @activities, :selected => params[:activity] %><br />
     <%# f.label :activity_id %>
     <%# f.number_field :activity_id %>
   </div>

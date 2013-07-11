@@ -1,4 +1,5 @@
 class PointsController < ApplicationController
+  before_filter :authenticate_user!
   # GET /points
   # GET /points.json
   def index
@@ -25,6 +26,8 @@ class PointsController < ApplicationController
   # GET /points/new.json
   def new
     @point = Point.new
+    @activities = Activity.where("active = ?", true)
+
     @user = User.find(params[:user_id]) if params[:user_id]
     respond_to do |format|
       format.html # new.html.erb
@@ -41,7 +44,7 @@ class PointsController < ApplicationController
   # POST /points.json
   def create
       @point = Point.new(params[:point])
-      
+
       # Set point.xp_earned based on the activity chosen
       @activity = Activity.find(params[:point][:activity_id])
       @point.xp_earned = @activity.activity_xp
@@ -62,7 +65,7 @@ class PointsController < ApplicationController
     @activity_ids = params[:point][:activity_id]
     #params[:point].delete(:activity_id)
     @activity_ids.each do |activity_id|
-      if !activity_id.blank?
+      unless activity_id.blank?
         params[:point][:activity_id] = activity_id
 
         @point = Point.new(params[:point])

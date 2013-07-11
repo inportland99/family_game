@@ -1,8 +1,13 @@
 class UsersController < ApplicationController
+  before_filter :authenticate_user!
+
+  # allow acces to this functions in the view using helper_method
+  helper_method :sort_column, :sort_direction
+
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User.order(sort_column + " " + sort_direction)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -87,5 +92,15 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def sort_column
+    User.column_names.include?(params[:sort]) ? params[:sort] : "name"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end

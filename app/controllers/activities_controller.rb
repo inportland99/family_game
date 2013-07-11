@@ -1,8 +1,12 @@
 class ActivitiesController < ApplicationController
+  before_filter :authenticate_user!
+
   # GET /activities
   # GET /activities.json
   def index
-    @activities = Activity.all
+    #@activities = Activity.all
+    @activities = Activity.where("active = ?", true)
+    @archived = Activity.where("active = ?", false)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -61,7 +65,8 @@ class ActivitiesController < ApplicationController
 
     respond_to do |format|
       if @activity.update_attributes(params[:activity])
-        format.html { redirect_to @activity, notice: 'Activity was successfully updated.' }
+        flash[:success] = 'Activity was successfully updated.'
+        format.html { redirect_to activities_path }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

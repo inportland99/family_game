@@ -1,8 +1,10 @@
 class RewardsController < ApplicationController
+  before_filter :authenticate_user!
   # GET /rewards
   # GET /rewards.json
   def index
-    @rewards = Reward.all
+    @rewards = Reward.where("active = ?", true)
+    @archived = Reward.where("active = ?", false)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -44,7 +46,8 @@ class RewardsController < ApplicationController
 
     respond_to do |format|
       if @reward.save
-        format.html { redirect_to @reward, notice: 'Reward was successfully created.' }
+        flash[:success] =  'Reward was successfully created.'
+        format.html { redirect_to @reward }
         format.json { render json: @reward, status: :created, location: @reward }
       else
         format.html { render action: "new" }
@@ -57,10 +60,10 @@ class RewardsController < ApplicationController
   # PUT /rewards/1.json
   def update
     @reward = Reward.find(params[:id])
-
     respond_to do |format|
       if @reward.update_attributes(params[:reward])
-        format.html { redirect_to @reward, notice: 'Reward was successfully updated.' }
+        flash[:success] = 'Reward was successfully created.'
+        format.html { redirect_to rewards_path }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

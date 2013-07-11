@@ -2,29 +2,39 @@
 
 <table class="table table-striped table-condensed" >
   <tr>
-    <th>Name</th>
-    <th>Current Pts</th>
-    <th>Total Earned</th>
-    <th>Total Spent</th>
+    <th><%= sortable "name" %></th>
+    <th><%= "Current Pts" %></th>
+    <th><%= sortable "xp", "Total Earned" %></th>
+    <th><%= sortable "xp_used", "Total Spent" %></th>
     <th></th>
-    <!-- <th></th>
-    <th></th> -->
   </tr>
 
 <% @users.each do |user| %>
-  <tr>
-    <td><%= user.name %></td>
-    <td><%= user.xp - user.xp_used unless user.xp_used.nil? %></td>
-    <td><%= user.xp %></td>
-    <td><%= user.xp_used %></td>
-    <td><%= link_to 'Show', user, class: 'btn btn-primary' %></td>
-    <!-- <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
-  </tr>
+  <% if user.role == "Player"%>
+    <tr>
+      <td><%= user.name %></td>
+      <td><%= user.xp - user.xp_used unless user.xp_used.nil? %></td>
+      <td><%= user.xp %></td>
+      <td><%= user.xp_used %></td>
+      <td>
+        <% if user.id == current_user.id || current_user.role == "Admin" %>
+          <%= link_to 'Show', user, class: 'btn btn-primary btn-small' %> 
+          <%= link_to 'Edit', edit_user_path(user), class: 'btn btn-small' %>
+        <% end %>
+        <% if current_user.role == "Admin" %>
+          <%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-small' %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
 <% end %>
 </table>
 
 <br />
 
-<p><%= link_to 'New User', new_user_path, class: 'btn' %></p>
+<p>
+  <% if current_user.role != "Player" %>
+    <%= link_to 'New User', new_user_path, class: 'btn btn-success' %>
+  <% end %>
+</p>
 
