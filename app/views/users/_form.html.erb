@@ -3,6 +3,10 @@
     <% if current_user.role != "Player" %>
     	<%= f.input :role, collection: ["Admin", "Parent", "Player"] %>
 	<% end %>
+    <% if current_user.role == "Player" %>
+    	<%= f.input :xp %>
+    	<%= f.input :xp_used %>
+	<% end %>
     <%= f.input :email %>
     <%# f.input :password %>
     <%# f.input :password_confirmation %>
