@@ -2,13 +2,11 @@
 # kids can create activities but they have to be approved by adults
 
 ----------
-parents can only see their child
-	# OPTION: Create authenticated Student model with User has many Students
-		remove player role from Users
-		add student_id to Users model
-		Student belongs_to User
-		Remove role and replace it with admin boolean
-		Parents should be able to sign up and create their student accounts
+Add students model and student authentication with devise
+	parents need to see students
+	DONE students need to see activities and rewards (index only)
+
+Parents should be able to sign up and create their student accounts
 
 add categories to activities & rewards
 
@@ -33,3 +31,10 @@ DONE remove archived activities from the add points form
 DONE sort leaderboard by columns (add earned in last week column)
 	# railscasts #228 sortable table columns
 DONE menu uses username instead of name. Edit profile should allow edit of other fields
+DONE Create authenticated Student model with User has many Students
+		XXX remove xp, xp_used, credits, rank from Users
+		XXX add student_id to Users model
+		XXX Student belongs_to User, User has many students
+		XXX Remove role and replace it with admin boolean
+		Refactor user and student controllers and views
+		SHOULD SCAFFOLD STUDENTS FIRST. I had to create controller and views by hand

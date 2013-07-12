@@ -1,6 +1,7 @@
 class ActivitiesController < ApplicationController
-  before_filter :authenticate_user!
-
+  before_filter :authenticate_user_or_student, only: :index
+  before_filter :authenticate_user!, except: :index
+  
   # GET /activities
   # GET /activities.json
   def index
@@ -85,5 +86,11 @@ class ActivitiesController < ApplicationController
       format.html { redirect_to activities_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def authenticate_user_or_student
+    :authenticate_student! || :authenticate_user!
   end
 end

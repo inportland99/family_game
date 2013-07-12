@@ -1,0 +1,39 @@
+<h1>Players</h1>
+
+<table class="table table-striped table-condensed" >
+  <tr>
+    <th><%= sortable "username", "Username" %></th>
+    <th><%= sortable "xp_current", "Current Points" %></th>
+    <th><%= sortable "xp_gained", "Total Earned" %></th>
+    <th><%= sortable "xp_used", "Total Spent" %></th>
+    <th><%= "Parent" %></th>
+    <th></th>
+  </tr>
+
+<% @students.each do |student| %>
+  <tr>
+    <td><%= student.username %></td>
+    <td><%= student.xp_current %></td>
+    <td><%= student.xp_gained %></td>
+    <td><%= student.xp_used %></td>
+    <td><%= student.user.username %></td>
+    <td>
+      <% if student.id == current_student.id || current_user.admin? %>
+        <%= link_to 'Show', student, class: 'btn btn-primary btn-small' %> 
+        <%= link_to 'Edit', edit_student_path(student), class: 'btn btn-small' %>
+      <% end %>
+      <% if current_user && current_user.admin? %>
+        <%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-small' %>
+      <% end %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+<p>
+  <% if current_user && current_user.admin? %>
+    <%= link_to 'New Player', new_student_path, class: 'btn btn-success' %>
+  <% end %>
+</p>
+

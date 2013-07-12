@@ -1,5 +1,6 @@
 class PointsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user_or_student
+
   # GET /points
   # GET /points.json
   def index
@@ -28,7 +29,7 @@ class PointsController < ApplicationController
     @point = Point.new
     @activities = Activity.where("active = ?", true)
 
-    @user = User.find(params[:user_id]) if params[:user_id]
+    @student = Student.find(params[:student_id]) if params[:student_id]
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @point }
@@ -52,7 +53,7 @@ class PointsController < ApplicationController
       respond_to do |format|
         if @point.save
           flash[:success] = 'Points added successfully'
-          format.html { redirect_to user_path(params[:point][:user_id]) }
+          format.html { redirect_to student_path(params[:point][:student_id]) }
           format.json { render json: @point, status: :created, location: @point }
         else
           format.html { render action: "new" }
@@ -63,7 +64,6 @@ class PointsController < ApplicationController
 
   def multiple
     @activity_ids = params[:point][:activity_id]
-    #params[:point].delete(:activity_id)
     @activity_ids.each do |activity_id|
       unless activity_id.blank?
         params[:point][:activity_id] = activity_id
@@ -82,7 +82,7 @@ class PointsController < ApplicationController
       end
     end
     respond_to do |format|
-      format.html { redirect_to user_path(params[:point][:user_id]) }
+      format.html { redirect_to student_path(params[:point][:student_id]) }
       format.json { render json: @point, status: :created, location: @point }
     end
   end
@@ -113,5 +113,11 @@ class PointsController < ApplicationController
       format.html { redirect_to points_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def authenticate_user_or_student
+    :authenticate_user! || :authenticate_student!
   end
 end

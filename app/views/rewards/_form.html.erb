@@ -1,7 +1,7 @@
 <%= simple_form_for(@reward) do |f| %>
   <%= f.input :name %>
   <%= f.input :description, :input_html => { :rows => 3 } %>
-  <%= f.input :xp_cost %>
+  <%= f.input :xp_cost, label: "Cost" %>
   <%= f.input :active %>
   <%= f.submit "Update Reward", class: 'btn btn-success' %>
 <% end %>

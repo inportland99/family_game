@@ -1,5 +1,7 @@
 class RewardsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user_or_student, only: :index
+  before_filter :authenticate_user!, except: :index
+
   # GET /rewards
   # GET /rewards.json
   def index
@@ -47,7 +49,7 @@ class RewardsController < ApplicationController
     respond_to do |format|
       if @reward.save
         flash[:success] =  'Reward was successfully created.'
-        format.html { redirect_to @reward }
+        format.html { redirect_to rewards_path }
         format.json { render json: @reward, status: :created, location: @reward }
       else
         format.html { render action: "new" }
@@ -83,4 +85,11 @@ class RewardsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+
+  def authenticate_user_or_student
+    :authenticate_student! || :authenticate_user!
+  end
+
 end

@@ -59,8 +59,6 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(params[:user])
-    @user.xp = 0
-    @user.xp_used = 0
     respond_to do |format|
       if @user.save
         format.html { redirect_to users_path, notice: 'User was successfully created.' }
@@ -104,7 +102,7 @@ class UsersController < ApplicationController
 
   def authorize_user
     @user = User.find(params[:id])
-    unless current_user.role == "Admin" || current_user.id == @user.id
+    unless current_user.admin? || current_user.id == @user.id
       flash[:error] = 'You can not edit selected user.'
       redirect_to users_path
     end

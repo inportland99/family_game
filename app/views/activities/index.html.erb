@@ -14,7 +14,7 @@
     <td><%= activity.description %></td>
     <td><%= activity.activity_xp %></td>
     <td>
-      <% if current_user.role != "Player" %> 
+      <% if current_user && current_user.admin? %> 
         <%= link_to 'Edit', edit_activity_path(activity), class: 'btn btn-small' %>
       <% end %>
   </tr>
@@ -22,7 +22,7 @@
 </table>
 
 <p>
-  <% if current_user.role != "Player" %> 
+  <% if current_user && current_user.admin? %> 
     <%= link_to 'New Activity', new_activity_path, class: 'btn btn-success' %>
   <% end %>
 </p>  

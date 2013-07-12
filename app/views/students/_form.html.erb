@@ -1,0 +1,10 @@
+<%= simple_form_for(@student) do |f| %>
+    <%= f.input :username %>
+    <%= f.association :user, label: "Parent", label_method: :username %>
+  	<%# f.input :xp_gained %>
+   	<%# f.input :xp_used %>
+    <%= f.input :email %>
+    <%= f.input :password %>
+    <%= f.input :password_confirmation %>
+    <%= f.button :submit, "Save Player", class: "btn btn-success" %>
+<% end %>

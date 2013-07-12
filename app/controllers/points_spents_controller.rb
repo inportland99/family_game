@@ -1,5 +1,6 @@
 class PointsSpentsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user_or_student
+
   # GET /points_spents
   # GET /points_spents.json
   def index
@@ -26,7 +27,7 @@ class PointsSpentsController < ApplicationController
   # GET /points_spents/new.json
   def new
     @points_spent = PointsSpent.new
-    @user = User.find(params[:user_id]) if params[:user_id]
+    @student = Student.find(params[:student_id]) if params[:student_id]
 
     respond_to do |format|
       format.html # new.html.erb
@@ -45,9 +46,9 @@ class PointsSpentsController < ApplicationController
     @points_spent = PointsSpent.new(params[:points_spent])
 
     # Ensure user has enough points to make the purchase
-    @user = User.find(params[:points_spent][:user_id])
+    @student = Student.find(params[:points_spent][:student_id])
     @reward = Reward.find(params[:points_spent][:reward_id])
-    if (@user.xp - @user.xp_used) >= @reward.xp_cost
+    if @student.xp_current >= @reward.xp_cost
       # Set points_spent.xp_spent based on the reward chosen
       @points_spent.xp_spent = @reward.xp_cost
     end
@@ -56,7 +57,7 @@ class PointsSpentsController < ApplicationController
       if !@points_spent.xp_spent.nil?
         if @points_spent.save
           flash[:success] = 'Reward granted. Points Spent.'
-          format.html { redirect_to user_path(params[:points_spent][:user_id]) }
+          format.html { redirect_to student_path(params[:points_spent][:student_id]) }
           format.json { render json: @points_spent, status: :created, location: @points_spent }
         else
           format.html { render action: "new" }
@@ -64,7 +65,7 @@ class PointsSpentsController < ApplicationController
         end
       else
           flash[:error] = 'Not enough points to purchase selected reward.'
-          format.html { redirect_to @points_spent }
+          format.html { redirect_to student_path(params[:points_spent][:student_id]) }
       end
     end
   end
@@ -96,4 +97,11 @@ class PointsSpentsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+
+  def authenticate_user_or_student
+    :authenticate_user! || :authenticate_student!
+  end
+
 end

@@ -1,21 +1,31 @@
-class User < ActiveRecord::Base
+class Student < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable,
-         :authentication_keys => [:login]
+         :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :email, :password, :password_confirmation, :remember_me
-  attr_accessible :admin, :name
-  has_many :students
-  
-  # Virtual attribute for authenticating by either username or email
-  # This is in addition to a real persisted field like 'username'
-  attr_accessor :login
-  attr_accessible :login
+  # attr_accessible :title, :body
 
+  attr_accessible :xp_gained, :xp_used, :xp_current, :user_id
+  attr_accessible :login
+  attr_accessor :login
+
+  belongs_to :user
+  has_many :points, dependent: :destroy
+  has_many :points_spents, dependent: :destroy
+
+  def update_xp
+    xp_total = points.sum(:xp_earned)
+    update_column(:xp_gained, xp_total)
+  end
+
+  def update_xp_used
+    xp_spent_total = points_spents.sum(:xp_spent)
+    update_column(:xp_used, xp_spent_total)
+  end
 
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
@@ -27,3 +37,4 @@ class User < ActiveRecord::Base
   end
 
 end
+

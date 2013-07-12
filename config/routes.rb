@@ -1,4 +1,6 @@
 FamilyGame::Application.routes.draw do
+  devise_for :students
+
   root :to => "users#index"
 
   devise_for :users
@@ -21,6 +23,8 @@ FamilyGame::Application.routes.draw do
 
   resources :users
 
+
+  resources :students
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

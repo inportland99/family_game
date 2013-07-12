@@ -1,7 +1,7 @@
 <%= simple_form_for @activity, html: {class: "form-inline"} do |f| %>
   <%= f.input :name %>
   <%= f.input :description, :input_html => { :rows => 3 } %>
-  <%= f.input :activity_xp %>
+  <%= f.input :activity_xp, label: "Points Earned" %>
   <%= f.input :active %>
   <%= f.submit "Save Activity", class: 'btn btn-success' %>
 <% end %>

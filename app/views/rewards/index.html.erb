@@ -14,7 +14,7 @@
     <td><%= reward.description %></td>
     <td><%= reward.xp_cost %></td>
     <td>
-      <% if current_user.role != "Player" %> 
+      <% if current_user && current_user.admin? %> 
         <%= link_to 'Edit', edit_reward_path(reward), class: 'btn btn-small' %>
       <% end %>
     </td>
@@ -23,7 +23,7 @@
 </table>
 
 <p>
-  <% if current_user.role != "Player" %> 
+  <% if current_user && current_user.admin? %> 
     <%= link_to 'New Reward', new_reward_path, class: 'btn btn-success' %>
   <% end %>
 </p>
@@ -44,7 +44,7 @@
     <td><%= reward.description %></td>
     <td><%= reward.xp_cost %></td>
     <td>
-      <% if current_user.role != "Player" %> 
+      <% if current_user.admin? %> 
         <%= link_to 'Edit', edit_reward_path(reward), class: 'btn btn-small' %>
       <% end %>
     </td>

@@ -1,0 +1,49 @@
+<div class="hero-unit">
+  	<h1><%= @student.username %></h1>
+  	<br />
+  	<p>Created <%= time_ago_in_words(@student.created_at) %> ago</p>
+
+  	<div class="progress" style="width: 100%; height:1.5em;">
+		<div class="bar bar-success" style="width: 100%;">Total Earned: <%= @student.xp_gained %> pts</div>
+	</div>
+  	<div class="progress" style="width: 100%; height:1.5em;">
+		<div class="bar bar-info" style="width: <%= (@student.xp_gained - @student.xp_used) * 100.0 / @student.xp_gained %>%;">Remaining: <%= @student.xp_gained - @student.xp_used %> pts</div>
+		<div class="bar bar-danger" style="width: <%= 100.0 - (@student.xp_gained - @student.xp_used) * 100.0 / @student.xp_gained %>%;">Total Spent: <%= @student.xp_used %> pts</div>
+	</div>
+	<%= link_to 'Add Points', new_point_path(student_id: params[:id]), class: 'btn' %> 
+	<%= link_to 'Spend Points', new_points_spent_path(student_id: params[:id]), class: 'btn' %>
+</div>
+
+<div class="row">
+	<div class="span4">
+		<div class="well">
+			<h4>Pts Earned in Last 24 hrs</h4>
+			<% @points_feed.each do |point|%>
+			<p>
+				<%= point.activity.name %> (<%= point.activity.activity_xp %>)<br /> -- <em style="font-size:80%;"><%= time_ago_in_words(point.updated_at) %> ago</em>
+			</p>
+			<% end %>
+		</div>
+	</div>
+	<div class="span4">
+		<div class="well">
+			<h4>Things To Do Today</h4>
+			<% @todo.each do |todo|%>
+			<p>
+				<%= todo.name %> (<%= todo.activity_xp %>)<br />
+			</p>
+			<% end %>
+		</div>
+	</div>
+	<div class="span4">
+		<div class="well">
+			<h4>Pts Spent in Last 7 Days</h4>
+
+			<% @points_spent_feed.each do |points_spent|%>
+			<p>
+				<%= points_spent.reward.name %> (<%= points_spent.reward.xp_cost %>)<br /> -- <em style="font-size:80%;"><%= time_ago_in_words(points_spent.updated_at) %> ago</em>
+			</p>
+			<% end %>
+		</div>
+	</div>
+</div>
