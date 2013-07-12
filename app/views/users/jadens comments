@@ -2,12 +2,21 @@
 # kids can create activities but they have to be approved by adults
 
 ----------
-prevent users from seeing other people's pages via url
 parents can only see their child
-
+	# OPTION 1: Create authenticated Student model with User has many Students
+		remove player role from Users
+		add student_id to Users model
+		Student belongs_to User
+		Remove role and replace it with admin boolean
+		Parents should be able to sign up and create their student accounts
+		
 add categories to activities & rewards
 
 Send nightly email with summary of activities
+
+prevent users from seeing other people's pages via url
+	# Devise handles authentication which lets you into the app
+	# You still need authorization to handle what users can and can't see / edit
 
 ----------
 DONE Add logged in username to menubar and dropdown to edit your profile
@@ -23,3 +32,4 @@ DONE remove archived activities from the add points form
 	# used collection and passed an instance variable with just active activities
 DONE sort leaderboard by columns (add earned in last week column)
 	# railscasts #228 sortable table columns
+DONE menu uses username instead of name. Edit profile should allow edit of other fields

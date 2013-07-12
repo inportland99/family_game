@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :authorize_user, only: :edit
 
-  # allow acces to this functions in the view using helper_method
+  # allow acces to these functions in the view using helper_method
   helper_method :sort_column, :sort_direction
 
   # GET /users
@@ -48,6 +49,10 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
+    # unless current_user.role == "Admin" || current_user.id == @user.id
+    #   flash[:error] = 'You can not edit selected user.'
+    #   redirect_to users_path
+    # end
   end
 
   # POST /users
@@ -95,6 +100,14 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def authorize_user
+    @user = User.find(params[:id])
+    unless current_user.role == "Admin" || current_user.id == @user.id
+      flash[:error] = 'You can not edit selected user.'
+      redirect_to users_path
+    end
+  end
 
   def sort_column
     User.column_names.include?(params[:sort]) ? params[:sort] : "name"
