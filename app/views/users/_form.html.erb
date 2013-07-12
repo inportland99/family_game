@@ -1,6 +1,6 @@
 <%= simple_form_for(@user) do |f| %>
     <%= f.input :name %>
-    <% if current_user.role == "Admin" %>
+    <% if current_user.role != "Player" %>
     	<%= f.input :role, collection: ["Admin", "Parent", "Player"] %>
 	<% end %>
     <%= f.input :email %>

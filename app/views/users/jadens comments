@@ -3,13 +3,13 @@
 
 ----------
 parents can only see their child
-	# OPTION 1: Create authenticated Student model with User has many Students
+	# OPTION: Create authenticated Student model with User has many Students
 		remove player role from Users
 		add student_id to Users model
 		Student belongs_to User
 		Remove role and replace it with admin boolean
 		Parents should be able to sign up and create their student accounts
-		
+
 add categories to activities & rewards
 
 Send nightly email with summary of activities
