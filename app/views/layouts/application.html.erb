@@ -42,7 +42,14 @@
                 </ul>
               </div>
             <% else %>
-              <li><%= link_to('Login', new_user_session_path)  %></li>
+              <li class='dropdown'>
+                <a class='dropdown-toggle' data-toggle="dropdown" href="#">Login<span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to('Login Parent', new_user_session_path)  %></li>
+                  <li><%= link_to('Login Player', new_student_session_path)  %></li>
+                  </li>
+                </ul>
             <% end %>
           </ul>
         </div>

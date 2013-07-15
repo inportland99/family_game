@@ -118,6 +118,11 @@ class PointsController < ApplicationController
   private
 
   def authenticate_user_or_student
-    :authenticate_user! || :authenticate_student!
+    if current_student
+      authenticate_student!
+    else
+      authenticate_user!
+    end
   end
+
 end

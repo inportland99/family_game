@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-  before_filter :authenticate_student!
+  before_filter :authenticate_user_or_student
 
   # allow acces to these functions in the view using helper_method
   helper_method :sort_column, :sort_direction
@@ -19,8 +19,8 @@ class StudentsController < ApplicationController
   # GET /studens/1.json
   def show
     @student = Student.find(params[:id])
-    @points_feed = Point.where("id  = ? AND updated_at > ?", @student.id, 1.days.ago ).order('created_at desc').limit('20')
-    @points_spent_feed = PointsSpent.where("id  = ? AND updated_at > ?", @student.id, 7.days.ago ).order('created_at desc').limit('20')
+    @points_feed = Point.where("student_id  = ? AND updated_at > ?", @student.id, 1.days.ago ).order('created_at desc').limit('20')
+    @points_spent_feed = PointsSpent.where("student_id  = ? AND updated_at > ?", @student.id, 7.days.ago ).order('created_at desc').limit('20')
 
     # Create list of activities that have not been done in the last 24 hours
     @todo = Activity.all
@@ -100,13 +100,21 @@ class StudentsController < ApplicationController
 
   private
 
-  def authorize_student
-    @student = student.find(params[:id])
-    unless current_user.admin? || current_student.id == @student.id
-      flash[:error] = 'You can not edit selected student.'
-      redirect_to students_path
+  def authenticate_user_or_student
+    if current_student
+      authenticate_student!
+    else
+      authenticate_user!
     end
   end
+
+  # def authorize_student
+  #   @student = student.find(params[:id])
+  #   unless current_user.admin? || current_student.id == @student.id
+  #     flash[:error] = 'You can not edit selected student.'
+  #     redirect_to students_path
+  #   end
+  # end
 
   def sort_column
     Student.column_names.include?(params[:sort]) ? params[:sort] : "username"

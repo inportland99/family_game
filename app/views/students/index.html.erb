@@ -18,7 +18,7 @@
     <td><%= student.xp_used %></td>
     <td><%= student.user.username %></td>
     <td>
-      <% if student.id == current_student.id || current_user.admin? %>
+      <% if (current_student && student.id == current_student.id) || (current_user && current_user.admin?) %>
         <%= link_to 'Show', student, class: 'btn btn-primary btn-small' %> 
         <%= link_to 'Edit', edit_student_path(student), class: 'btn btn-small' %>
       <% end %>

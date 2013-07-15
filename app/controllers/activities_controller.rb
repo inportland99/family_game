@@ -91,6 +91,11 @@ class ActivitiesController < ApplicationController
   private
 
   def authenticate_user_or_student
-    :authenticate_student! || :authenticate_user!
+    if current_student
+      authenticate_student!
+    else
+      authenticate_user!
+    end
   end
+
 end
