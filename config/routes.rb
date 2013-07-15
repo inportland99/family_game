@@ -1,9 +1,12 @@
 FamilyGame::Application.routes.draw do
   devise_for :students
 
-  root :to => "users#index"
+
+  root :to => "students#index"
+
 
   devise_for :users
+  
 
   resources :points_spents
 
