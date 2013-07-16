@@ -2,11 +2,16 @@ class ActivitiesController < ApplicationController
   before_filter :authenticate_user_or_student, only: :index
   before_filter :authenticate_user!, except: :index
   
+  # allow acces to these functions in the view using helper_method
+  helper_method :sort_column, :sort_direction
+
   # GET /activities
   # GET /activities.json
   def index
     #@activities = Activity.all
-    @activities = Activity.where("active = ?", true)
+    #@activities = Activity.where("active = ?", true)
+    @activities = Activity.order(sort_column + " " + sort_direction).where("active = ?", true)
+        
     @archived = Activity.where("active = ?", false)
 
     respond_to do |format|
@@ -96,6 +101,14 @@ class ActivitiesController < ApplicationController
     else
       authenticate_user!
     end
+  end
+
+  def sort_column
+    Activity.column_names.include?(params[:sort]) ? params[:sort] : "name"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 
 end

@@ -2,9 +2,10 @@
 
 <table class="table table-striped table-condensed" >
   <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Points</th>
+    <th><%= sortable "name", "Name" %></th>
+    <th><%= sortable "description", "Description" %></th>
+    <th><%= sortable "category", "Category" %></th>
+    <th><%= sortable "activity_xp", "Points" %></th>
     <th></th>
   </tr>
 
@@ -12,6 +13,7 @@
   <tr>
     <td><%= activity.name %></td>
     <td><%= activity.description %></td>
+    <td><%= activity.category %></td>
     <td><%= activity.activity_xp %></td>
     <td>
       <% if current_user && current_user.admin? %> 
@@ -33,6 +35,7 @@
   <tr>
     <th>Name</th>
     <th>Description</th>
+    <th>Category</th>
     <th>Points</th>
     <th></th>
   </tr>
@@ -41,9 +44,10 @@
   <tr>
     <td><%= activity.name %></td>
     <td><%= activity.description %></td>
+    <td><%= activity.category %></td>
     <td><%= activity.activity_xp %></td>
     <td>
-      <% if current_user.role != "Player" %> 
+      <% if current_user && current_user.admin? %> 
         <%= link_to 'Edit', edit_activity_path(activity), class: 'btn btn-small' %>
       <% end %>
   </tr>
