@@ -9,13 +9,13 @@ namespace :db do
 end
 
 def make_users
-  admin = User.create!(username:              "drrajshah",
-                       email:                 "raj@mathplusacademy.com",
-                       password:              "mathplus",
-                       password_confirmation: "mathplus")
-  admin.toggle!(:admin)
+  User.create!(username:              "drrajshah",
+               email:                 "raj@mathplusacademy.com",
+               password:              "mathplus",
+               password_confirmation: "mathplus",
+               admin:                 true)
 
-  User.create!(         first_name:           "shefali",
+  User.create!(         username:             "shefali",
                         email:                "rajandshefali@gmail.com",
                         password:             "helium44",
                         password_confirmation:"helium44")
@@ -23,21 +23,23 @@ def make_users
 end
 
 def make_students
-  student1 = Student.create!(username:        "jadenshah",
-                       email:                 "jadenrshah@gmail.com",
-                       xp_gained:             "0"
-                       xp_spent:              "0"
-                       xp_current:            "0"
-                       password:              "jadenshah",
-                       password_confirmation: "jadenshah")
+  Student.create!(username:              "jadenshah",
+                  email:                 "jadenrshah@gmail.com",
+                  user_id:               "1", 
+                  xp_gained:             "0",
+                  xp_used:               "0",
+                  xp_current:            "0",
+                  password:              "jadenshah",
+                  password_confirmation: "jadenshah")
 
-  student1 = Student.create!(username:        "rianshah",
-                       email:                 "rianrshah@gmail.com",
-                       xp_gained:             "0"
-                       xp_spent:              "0"
-                       xp_current:            "0"
-                       password:              "rianshah",
-                       password_confirmation: "rianshah")
+  Student.create!(username:              "rianshah",
+                  email:                 "rianrshah@gmail.com",
+                  user_id:               "1", 
+                  xp_gained:             "0",
+                  xp_used:               "0",
+                  xp_current:            "0",
+                  password:              "rianshah",
+                  password_confirmation: "rianshah")
 end
 
 def make_activities
@@ -49,7 +51,7 @@ def make_activities
 end
 
 def make_rewards
-  Activity.create!(name:            "Extra Video Game Time",
+  Reward.create!(name:            "Extra Video Game Time",
                    description:     "15 minute bonus time",
                    xp_cost:         "10",
                    active:          true)
