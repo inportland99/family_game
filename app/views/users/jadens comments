@@ -1,14 +1,6 @@
-# there should be a bonus of diffrent values only to be added by adults
-# kids can create activities but they have to be approved by adults
-
-----------
-Add students model and student authentication with devise
-	parents need to see students
-	DONE students need to see activities and rewards (index only)
+Parents can create bonus points with a comment
 
 Parents should be able to sign up and create their student accounts
-
-add categories to activities & rewards
 
 Send nightly email with summary of activities
 
@@ -38,3 +30,9 @@ DONE Create authenticated Student model with User has many Students
 		XXX Remove role and replace it with admin boolean
 		Refactor user and student controllers and views
 		SHOULD SCAFFOLD STUDENTS FIRST. I had to create controller and views by hand
+DONE Add students model and student authentication with devise
+	parents need to see students
+	DONE students need to see activities and rewards (index only)
+
+
+DONE add categories to activities & rewards

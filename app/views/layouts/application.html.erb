@@ -12,7 +12,13 @@
         <div class="container">
           <ul class="nav pull-right ul-padding">
             <% if current_user %>
-              <li><%= link_to "Parents", users_path %></li>
+              <li class='dropdown'>
+                <a class='dropdown-toggle' data-toggle="dropdown" href="#">Parents<span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><%= link_to "Manage Earnings", points_path %></li>
+                  <li> <%= link_to "Manage Spending", points_spents_path %></li>
+                </ul>
             <% end %>
             <li><%= link_to "Players", students_path %></li>
             <li><%= link_to "Activities", activities_path %></li>
@@ -28,7 +34,6 @@
                   <li> <%= link_to "Logout", destroy_user_session_path, :method => :delete %>
                   </li>
                 </ul>
-              </div>
             <% elsif student_signed_in? %>
               <li class='dropdown'>
                 <a class='dropdown-toggle' data-toggle="dropdown" href="#">
@@ -40,7 +45,6 @@
                   <li> <%= link_to "Logout", destroy_student_session_path, :method => :delete %>
                   </li>
                 </ul>
-              </div>
             <% else %>
               <li class='dropdown'>
                 <a class='dropdown-toggle' data-toggle="dropdown" href="#">Login<span class="caret"></span>

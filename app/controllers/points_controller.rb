@@ -1,11 +1,12 @@
 class PointsController < ApplicationController
-  before_filter :authenticate_user_or_student
+  before_filter :authenticate_user!,
 
+  helper_method :sort_column, :sort_direction
   # GET /points
   # GET /points.json
   def index
-    @points = Point.all
-
+    #@points = Point.all
+    @points = Point.order(sort_column + " " + sort_direction)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @points }
@@ -117,12 +118,20 @@ class PointsController < ApplicationController
 
   private
 
-  def authenticate_user_or_student
-    if current_student
-      authenticate_student!
-    else
-      authenticate_user!
-    end
+  def sort_column
+    Student.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
   end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+  end
+
+  # def authenticate_user_or_student
+  #   if current_student
+  #     authenticate_student!
+  #   else
+  #     authenticate_user!
+  #   end
+  # end
 
 end

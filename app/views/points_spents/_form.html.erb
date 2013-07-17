@@ -4,7 +4,7 @@
       <h4>Add points for <%= @student.username %></h4>
       <%= f.hidden_field :student_id, value: params[:student_id] %>
     <% else %>
-      <%= f.association :student, label_method: :name, :selected => params[:student] %><br />
+      <%= f.association :student, label_method: :username, :selected => params[:student] %><br />
     <%# f.label :user_id %>
     <%# f.number_field :user_id %>
     <% end %>

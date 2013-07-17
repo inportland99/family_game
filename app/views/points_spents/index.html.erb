@@ -13,7 +13,7 @@
 
 <% @points_spents.each do |points_spent| %>
   <tr>
-    <td><%= points_spent.user.name %></td>
+    <td><%= points_spent.student.username %></td>
     <td><%= points_spent.reward.name %></td>
     <td><%= points_spent.xp_spent %></td>
     <td><%= points_spent.created_at.strftime("%b-%d-%Y") %></td>
@@ -23,7 +23,3 @@
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<p><%= link_to 'Spend Points', new_points_spent_path, class: 'btn' %></p>
