@@ -20,7 +20,8 @@
 			<h4>Pts Earned in Last 24 hrs</h4>
 			<% @points_feed.each do |point|%>
 			<p>
-				<%= point.activity.name %> (<%= point.activity.activity_xp %>)<br /> -- <em style="font-size:80%;"><%= time_ago_in_words(point.updated_at) %> ago</em>
+				<%= point.activity.name %> (<%= point.activity.activity_xp %>)
+		        <%= link_to '', point, method: :delete, data: { confirm: 'Are you sure you want to delete these points?' }, class: 'icon-trash' %><br /> -- <em style="font-size:80%;"><%= time_ago_in_words(point.updated_at) %> ago</em>
 			</p>
 			<% end %>
 		</div>

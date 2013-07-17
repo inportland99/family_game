@@ -1,5 +1,5 @@
 class PointsController < ApplicationController
-  before_filter :authenticate_user!,
+  before_filter :authenticate_user!
 
   helper_method :sort_column, :sort_direction
   # GET /points
@@ -111,7 +111,8 @@ class PointsController < ApplicationController
     @point.destroy
 
     respond_to do |format|
-      format.html { redirect_to points_url }
+      flash[:error] = 'Points deleted successfully'
+      format.html { redirect_to :back }
       format.json { head :no_content }
     end
   end

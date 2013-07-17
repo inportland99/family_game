@@ -1,4 +1,8 @@
 Parents can create bonus points with a comment
+Gratitude activity that allows comment
+
+Add badges for reading 3 books, doing a challenge problem, etc.
+
 
 Parents should be able to sign up and create their student accounts
 
@@ -36,3 +40,8 @@ DONE Add students model and student authentication with devise
 
 
 DONE add categories to activities & rewards
+
+DONE Parents can access points and spent to create and destroy them
+
+DONE Students and parents can destroy points from student#show
+
