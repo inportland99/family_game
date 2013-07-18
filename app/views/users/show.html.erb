@@ -1,18 +1,47 @@
 <p>
-  <b>Username:</b>
-  <%= @user.username %>
+	<b>Username:</b>
+	<%= @user.username %>
 </p>
 
 <p>
-  <b>Email:</b>
-  <%= @user.email %>
+	<b>Email:</b>
+	<%= @user.email %>
 </p>
 
 <p>
-  <b>Admine:</b>
-  <%= @user.admin %>
+	<b>Admin:</b>
+	<%= @user.admin %>
 </p>
+<%= link_to 'Edit', edit_user_path(@user), class: 'btn btn-small' %>
+<hr>
+<% if current_user && current_user.id == @user.id %>
+<h4>Players</h4>
+<table class="table table-striped table-condensed" >
+	<tr>
+		<th>Username</th>
+		<th>Current Points</th>
+		<th>Total Earned</th>
+		<th>Total Spent</th>
+		<th></th>
+	</tr>
 
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+	<% @students.each do |student| %>
+	<tr>
+		<td><%= student.username %></td>
+		<td><%= student.xp_current %></td>
+		<td><%= student.xp_gained %></td>
+		<td><%= student.xp_used %></td>
+		<td>
+			<%= link_to 'Show', student, class: 'btn btn-primary btn-small' %> 
+			<%= link_to 'Edit', edit_student_path(student), class: 'btn btn-small' %>
+			<%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-small' %>
+		</td>
+	</tr>
+	<% end %>
+</table>
+<%= link_to "Manage Earnings", points_path, class: 'btn btn-primary' %>
+<%= link_to "Manage Spending", points_spents_path, class: 'btn btn-primary' %>
+<%= link_to "New Player", new_student_path, class: 'btn btn-success' %>
+<% end %>
+<br />
+<br />

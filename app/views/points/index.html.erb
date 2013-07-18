@@ -12,15 +12,17 @@
   </tr>
 
 <% @points.each do |point| %>
-  <tr>
-    <td><%= point.student.username %></td>
-    <td><%= point.activity.name %></td>
-    <td><%= point.xp_earned %></td>
-    <td><%= point.created_at.strftime("%b-%d-%Y") %></td>
-    <td><%= link_to 'Show', point %></td>
-    <td><%= link_to 'Edit', edit_point_path(point) %></td>
-    <td><%= link_to 'Destroy', point, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+  <% if point.student.user.id == current_user.id %>
+    <tr>
+      <td><%= point.student.username %></td>
+      <td><%= point.activity.name %></td>
+      <td><%= point.xp_earned %></td>
+      <td><%= point.created_at.strftime("%b-%d-%Y") %></td>
+      <td><%= link_to 'Show', point %></td>
+      <td><%= link_to 'Edit', edit_point_path(point) %></td>
+      <td><%= link_to 'Destroy', point, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
 <% end %>
 </table>
 

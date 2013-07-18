@@ -2,10 +2,10 @@ class PointsController < ApplicationController
   before_filter :authenticate_user!
 
   helper_method :sort_column, :sort_direction
+  
   # GET /points
   # GET /points.json
   def index
-    #@points = Point.all
     @points = Point.order(sort_column + " " + sort_direction)
     respond_to do |format|
       format.html # index.html.erb

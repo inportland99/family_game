@@ -1,6 +1,8 @@
 class PointsSpentsController < ApplicationController
   before_filter :authenticate_user!
 
+  helper_method :sort_column, :sort_direction
+
   # GET /points_spents
   # GET /points_spents.json
   def index
@@ -99,6 +101,14 @@ class PointsSpentsController < ApplicationController
   end
 
   private
+
+  def sort_column
+    Student.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+  end
 
   # def authenticate_user_or_student
   #   if current_student
