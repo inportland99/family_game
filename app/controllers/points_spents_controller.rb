@@ -1,5 +1,5 @@
 class PointsSpentsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user_or_student
 
   helper_method :sort_column, :sort_direction
 
@@ -50,7 +50,7 @@ class PointsSpentsController < ApplicationController
     # Ensure user has enough points to make the purchase
     @student = Student.find(params[:points_spent][:student_id])
     @reward = Reward.find(params[:points_spent][:reward_id])
-    if @student.xp_current >= @reward.xp_cost
+    if (@student.xp_gained - @student.xp_used) >= @reward.xp_cost
       # Set points_spent.xp_spent based on the reward chosen
       @points_spent.xp_spent = @reward.xp_cost
     end

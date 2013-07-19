@@ -19,12 +19,16 @@ class Student < ActiveRecord::Base
 
   def update_xp
     xp_total = points.sum(:xp_earned)
+    xp_spent_total = points_spents.sum(:xp_spent)
     update_column(:xp_gained, xp_total)
+    update_column(:xp_current, xp_total - xp_spent_total)
   end
 
   def update_xp_used
+    xp_total = points.sum(:xp_earned)
     xp_spent_total = points_spents.sum(:xp_spent)
     update_column(:xp_used, xp_spent_total)
+    update_column(:xp_current, xp_total - xp_spent_total)
   end
 
   def self.find_first_by_auth_conditions(warden_conditions)

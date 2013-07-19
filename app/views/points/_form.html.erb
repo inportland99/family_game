@@ -5,14 +5,10 @@
       <%= f.hidden_field :student_id, value: params[:student_id] %>
     <% else %>
       <%= f.association :student, label_method: :username, :selected => params[:student] %><br />
-      <%# f.label :user_id %>
-      <%# f.number_field :user_id %>
     <% end %>
   </div>
   <div class="field">
     <%= f.association :activity, label_method: :name, as: :check_boxes, collection: @activities, :selected => params[:activity] %><br />
-    <%# f.label :activity_id %>
-    <%# f.number_field :activity_id %>
   </div>
   <div class="actions">
     <%= f.submit 'Add Points Now', class: 'btn btn-success' %>

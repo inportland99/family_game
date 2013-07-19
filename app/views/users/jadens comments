@@ -1,9 +1,10 @@
 Parents can create bonus points with a comment
 Gratitude activity that allows comment
-
-Create a static home page
-
 Group add points form by category
+
+Create a static home page with links to both logins
+
+Add duration limit for rewards
 
 Send nightly email with summary of activities
 
@@ -48,3 +49,8 @@ DONE Prevent users from seeing other people's pages via url
 	# You still need authorization to handle what users can and can't see / edit
 DONE Parents should be able to sign up and create their student accounts
 
+DONE Student login not allowing spend points and buy rewards
+
+DONE Spend rewards calculation is broken
+
+DONE User show last login (replace created) and / or last time they added points

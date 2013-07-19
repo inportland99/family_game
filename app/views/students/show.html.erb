@@ -1,7 +1,7 @@
 <div class="hero-unit">
   	<h1><%= @student.username %></h1>
   	<br />
-  	<p>Created <%= time_ago_in_words(@student.created_at) %> ago</p>
+  	<p>Last Login <%= time_ago_in_words(@student.last_sign_in_at) %> ago</p>
 
   	<div class="progress" style="width: 100%; height:1.5em;">
 		<div class="bar bar-success" style="width: 100%;">Total Earned: <%= @student.xp_gained %> pts</div>

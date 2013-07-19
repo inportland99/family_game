@@ -1,5 +1,5 @@
 class PointsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user_or_student
 
   helper_method :sort_column, :sort_direction
   
