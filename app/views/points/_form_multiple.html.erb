@@ -1,4 +1,4 @@
-<%= simple_form_for @point, method: :post, html: {class: "form-horizontal"} do |f| %>
+<%= simple_form_for @point, url: multiple_points_path, method: :post, html: {class: "form-horizontal"} do |f| %>
   <div class="field">
     <% if params[:student_id] %>
       <h4>Add points for <%= @student.username %></h4>
@@ -8,7 +8,7 @@
     <% end %>
   </div>
   <div class="field">
-    <%= f.association :activity, label_method: :name, collection: @activities, :selected => params[:activity] %><br />
+    <%= f.association :activity, label_method: :name, as: :check_boxes, collection: @activities, :selected => params[:activity] %><br />
   </div>
   <div class="actions">
     <%= f.submit 'Add Points Now', class: 'btn btn-success' %>

@@ -1,10 +1,11 @@
-Parents can create bonus points with a comment
-Gratitude activity that allows comment
-Group add points form by category
+Add a comment DB.
+	force comments for certain types of points
+
+Students/Parents can see older points so they can make edits - use the table gem that travis used
 
 Create a static home page with links to both logins
 
-Add duration limit for rewards
+Add duration limit for rewards (you can only sleep in mommys bed once a week)
 
 Send nightly email with summary of activities
 
@@ -54,3 +55,9 @@ DONE Student login not allowing spend points and buy rewards
 DONE Spend rewards calculation is broken
 
 DONE User show last login (replace created) and / or last time they added points
+
+DONE Fix players can't edit their info
+	new players assigned to current_user
+	players can edit their passwords
+
+

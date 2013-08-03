@@ -1,5 +1,5 @@
 class Point < ActiveRecord::Base
-  attr_accessible :activity_id, :xp_earned, :student_id
+  attr_accessible :activity_id, :xp_earned, :student_id, :comment
   belongs_to :student
   belongs_to :activity
   validates_presence_of :activity_id, :student_id, :xp_earned

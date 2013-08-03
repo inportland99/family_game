@@ -1,6 +1,8 @@
 <%= simple_form_for(@student) do |f| %>
     <%= f.input :username %>
-    <%= f.input :user_id, as: :hidden, :input_html => { :value => current_user.id } %>
+    <% if current_user && current_user.id > 0 %>
+	    <%= f.input :user_id, as: :hidden, :input_html => { :value => current_user.id } %>
+    <% end %>
     <%= f.input :email %>
     <%= f.input :password %>
     <%= f.input :password_confirmation %>

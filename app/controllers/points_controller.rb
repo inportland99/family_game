@@ -54,7 +54,7 @@ class PointsController < ApplicationController
       respond_to do |format|
         if @point.save
           flash[:success] = 'Points added successfully'
-          format.html { redirect_to student_path(params[:point][:student_id]) }
+          format.html  { redirect_to new_point_path(student_id: params[:point][:student_id]) }
           format.json { render json: @point, status: :created, location: @point }
         else
           format.html { render action: "new" }

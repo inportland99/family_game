@@ -48,7 +48,7 @@ class StudentsController < ApplicationController
   # GET /students/1/edit
   def edit
     @student = Student.find(params[:id])
-    # unless current_student.role == "Admin" || current_student.id == @student.id
+    # unless current_student.id == @student.id
     #   flash[:error] = 'You can not edit selected student.'
     #   redirect_to students_path
     # end
